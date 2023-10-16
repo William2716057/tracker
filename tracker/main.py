@@ -49,8 +49,6 @@ while ret:
             track_id = track.track_id
 
             cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (colors[track_id % len(colors)]), 3)
-            #print(r)
-    #print(detections)
 
     cv2.imshow('frame', frame)
     cv2.waitKey(25)
