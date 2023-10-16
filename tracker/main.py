@@ -58,6 +58,7 @@ while ret:
 
             cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (colors[track_id % len(colors)]), 3)
 
+            #display the number on screen
             cv2.putText(frame, f"Number of People: {numPeople}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0, 255), 2)
     cv2.imshow('frame', frame)
     cv2.waitKey(25)
