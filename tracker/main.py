@@ -9,7 +9,7 @@ from ultralytics import YOLO
 from tracker import Tracker
 
 
-video_path = os.path.join('.', 'data', 'people.mp4')
+video_path = os.path.join('.', 'data', 'file.video') #add name of own video here
 
 cap = cv2.VideoCapture(video_path)
 
@@ -22,6 +22,9 @@ model = YOLO("yolov8n.pt")
 tracker = Tracker()
 
 colors = [(random.randint(0,255),random.randint(0,255),random.randint(0,255)) for j in range(10)]
+
+#initialise number of people to begin count
+numPeople = 0
 
 while ret:
 
@@ -39,6 +42,11 @@ while ret:
             y1 = int(y1)
             y2 = int(y2)
             class_id = int(class_id)
+
+
+            if class_id == 0:
+
+                numPeople += 1;
             detections.append([x1, y1, x2, y2, score])
 
         tracker.update(frame, detections)
@@ -50,6 +58,7 @@ while ret:
 
             cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (colors[track_id % len(colors)]), 3)
 
+            cv2.putText(frame, f"Number of People: {numPeople}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0, 255), 2)
     cv2.imshow('frame', frame)
     cv2.waitKey(25)
 
